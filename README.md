@@ -99,3 +99,13 @@ It then returns a response in the following format:
 ```
 
 The logic for division is contained inside this service.
+
+## Run locally
+
+To run locally, the easiest way is Docker compose. Simply run:
+
+```
+docker-compose up
+```
+
+Then access the frontend on `http://localhost:8000`.
