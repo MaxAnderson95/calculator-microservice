@@ -21,7 +21,7 @@ class DivideResponse(BaseModel):
 
 
 def divide_controller(num1: float, num2: float) -> float:
-    logger.info(f"Dividing {num1} * {num2}")
+    logger.info(f"Dividing {num1} / {num2}")
     if num2 == 0:
         raise ZeroDivisionError("Cannot divide by zero")
     return num1 / num2
