@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: ghcr.io/maxanderson95/calculator-microservice/frontend:latest
+          env:
+            - name: PORT
+              value: "80"
+            - name: ADD_SERVICE_HOST
+              value: "http://add-service"
+            - name: SUBTRACT_SERVICE_HOST
+              value: "http://subtract-service"
+            - name: MULTIPLY_SERVICE_HOST
+              value: "http://multiply-service"
+            - name: DIVIDE_SERVICE_HOST
+              value: "http://divide-service"
+          ports:
+            - containerPort: 80
