@@ -1,5 +1,6 @@
 import os
 import logging
+import pathlib
 import uvicorn
 from typing import Annotated
 from fastapi import FastAPI, HTTPException, Form
@@ -44,7 +45,8 @@ def divide(num1: Annotated[float, Form()], num2: Annotated[float, Form()]):
     return result
 
 
-app.mount("/", StaticFiles(directory="./services/frontend/src/static", html=True), name="static")
+static_folder = pathlib.Path(__file__).parent.resolve() / "static"
+app.mount("/", StaticFiles(directory=static_folder, html=True), name="static")
 
 if __name__ == "__main__":
     PORT = int(os.getenv("PORT", 8000))
