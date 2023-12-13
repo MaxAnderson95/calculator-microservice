@@ -1,0 +1,47 @@
+services:
+  frontend:
+    build:
+      context: ./services/frontend
+    container_name: frontend
+    environment:
+      - PORT=8000
+      - ADD_SERVICE_URL=http://add-service:8001
+      - SUBTRACT_SERVICE_URL=http://subtract-service:8002
+      - MULTIPLY_SERVICE_URL=http://multiply-service:8003
+      - DIVIDE_SERVICE_URL=http://divide-service:8004
+    ports:
+      - "8000:8000"
+    restart: "no"
+
+  add-service:
+    build:
+      context: ./services/add
+    container_name: add-service
+    environment:
+      - PORT=8001
+    restart: "no"
+
+  subtract-service:
+    build:
+      context: ./services/subtract
+    container_name: subtract-service
+    environment:
+      - PORT=8002
+      - ADD_SERVICE_URL=http://add-service:8001
+    restart: "no"
+
+  multiply-service:
+    build:
+      context: ./services/multiply
+    container_name: multiply-service
+    environment:
+      - PORT=8003
+    restart: "no"
+
+  divide-service:
+    build:
+      context: ./services/divide
+    container_name: divide-service
+    environment:
+      - PORT=8004
+    restart: "no"

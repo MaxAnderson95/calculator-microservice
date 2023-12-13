@@ -13,7 +13,12 @@
       "justMyCode": true,
       "env": {
         "PYTHONDONTWRITEBYTECODE": "1",
-        "DEBUG": "True"
+        "DEBUG": "True",
+        "PORT": "8080",
+        "ADD_SERVICE_URL": "http://localhost:8001",
+        "SUBTRACT_SERVICE_URL": "http://localhost:8002",
+        "MULTIPLY_SERVICE_URL": "http://localhost:8003",
+        "DIVIDE_SERVICE_URL": "http://localhost:8004"
       }
     }
   ]
