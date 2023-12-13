@@ -109,3 +109,21 @@ docker-compose up
 ```
 
 Then access the frontend on `http://localhost:8000`.
+
+## Todo List
+
+- [x] Build a basic two tier service architecture
+
+- [x] Build a frontend web UI
+
+- [ ] Add Redis caching to the frontend to cache recently computed calculations. Add delays to all calls by default to see the difference on a cache hit.
+
+- [ ] Add a Postgres database to store a log of all calculation queries.
+
+- [ ] Instrument each service with OpenTelemetry to allow for exporting of trace data.
+
+- [ ] Add Prometheus (OpenMetrics) endpoints to export various metrics for each service.
+
+- [ ] Add a "chaos" switch which enables purposeful bugs, errors, and delays in various functions.
+
+- [ ] Add an artifical load-generator service that sends calls to the frontend to simulate usage while monitoring metrics and traces.
