@@ -14,7 +14,7 @@ A Python FastAPI service which serves the static content at `/` and a user API a
 
 <img src="./assets/ui.png" alt="Main UI screen" width="400px" />
 
-The web UI is written using HTMX, Tailwind CSS, and some basic JS. It submits the values in the form to the `/api/v1/calculate` route. The values are submitted and encoded as form data. The keys in the form are `operation`, `num1`, and `num2`. Valid values for `operation` are `add`, `subtract`, `multiply`, and `divide`.
+The web UI is written using HTMX, Tailwind CSS, and some basic JS. It submits the values in the form to the `/api/v1/calculate` route. The values are submitted and encoded as form data. The keys in the form are `operation`, `num1`, and `num2`. Valid values for `operation` are `add`, `subtract`, `multiply`, and `divide`. The frontend API will then submit requests to the respective backend services for calculation.
 
 ### Add Service
 
