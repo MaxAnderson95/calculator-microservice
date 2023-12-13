@@ -17,7 +17,7 @@ spec:
           env:
             - name: PORT
               value: "80"
-            - name: ADD_SERVICE_HOST
+            - name: ADD_SERVICE_URL
               value: "http://add-service"
           ports:
             - containerPort: 80

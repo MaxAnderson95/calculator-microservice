@@ -17,13 +17,13 @@ spec:
           env:
             - name: PORT
               value: "80"
-            - name: ADD_SERVICE_HOST
+            - name: ADD_SERVICE_URL
               value: "http://add-service"
-            - name: SUBTRACT_SERVICE_HOST
+            - name: SUBTRACT_SERVICE_URL
               value: "http://subtract-service"
-            - name: MULTIPLY_SERVICE_HOST
+            - name: MULTIPLY_SERVICE_URL
               value: "http://multiply-service"
-            - name: DIVIDE_SERVICE_HOST
+            - name: DIVIDE_SERVICE_URL
               value: "http://divide-service"
           ports:
             - containerPort: 80
