@@ -13,31 +13,35 @@ logger = logging.getLogger(__name__)
 app = FastAPI(title="Frontend Service")
 
 
-@app.post("/api/v1/add")
-def add(num1: Annotated[float, Form()], num2: Annotated[float, Form()]) -> float:
+@app.post("/api/v1/calculate")
+def add(operation: Annotated[str, Form()], num1: Annotated[float, Form()], num2: Annotated[float, Form()]) -> float:
+    logger.info(f"Received operation: {operation} with values: {num1} and {num2}")
+    match operation:
+        case "add":
+            try:
+                return controller.add(num1, num2)
+            except Exception as e:
+                raise HTTPException(status_code=400, detail=str(e))
+        case "subtract":
+            try:
+                return controller.subtract(num1, num2)
+            except Exception as e:
+                raise HTTPException(status_code=400, detail=str(e))
+        case "multiply":
+            try:
+                return controller.multiply(num1, num2)
+            except Exception as e:
+                raise HTTPException(status_code=400, detail=str(e))
+        case "divide":
+            try:
+                return controller.divide(num1, num2)
+            except Exception as e:
+                raise HTTPException(status_code=400, detail=str(e))
+        case _:
+            raise HTTPException(status_code=404, detail="Invalid operation")
+
     logger.info(f"Adding {num1} + {num2}")
     return controller.add(num1, num2)
-
-
-@app.post("/api/v1/subtract")
-def subtract(num1: Annotated[float, Form()], num2: Annotated[float, Form()]) -> float:
-    logger.info(f"Subtracting {num1} - {num2}")
-    return controller.subtract(num1, num2)
-
-
-@app.post("/api/v1/multiply")
-def multiply(num1: Annotated[float, Form()], num2: Annotated[float, Form()]) -> float:
-    logger.info(f"Multiplying {num1} * {num2}")
-    return controller.multiply(num1, num2)
-
-
-@app.post("/api/v1/divide")
-def divide(num1: Annotated[float, Form()], num2: Annotated[float, Form()]) -> float:
-    logger.info(f"Dividing {num1} / {num2}")
-    try:
-        return controller.divide(num1, num2)
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
 
 
 static_folder = pathlib.Path(__file__).parent.resolve() / "static"

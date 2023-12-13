@@ -16,10 +16,10 @@
         </form>
 
         <div class="flex space-x-2 mt-4">
-            <button hx-post="/api/v1/add" id="add" hx-target="#value" hx-vals='javascript:{"num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add</button>
-            <button hx-post="/api/v1/subtract" id="subtract" hx-target="#value" hx-vals='javascript:{"num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Subtract</button>
-            <button hx-post="/api/v1/multiply" id="multiply" hx-target="#value" hx-vals='javascript:{"num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Multiply</button>
-            <button hx-post="/api/v1/divide" id="divide" hx-target="#value" hx-vals='javascript:{"num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Divide</button>
+            <button hx-post="/api/v1/calculate" id="add" hx-target="#value" hx-vals='javascript:{"operation": "add", "num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add</button>
+            <button hx-post="/api/v1/calculate" id="subtract" hx-target="#value" hx-vals='javascript:{"operation": "subtract", "num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Subtract</button>
+            <button hx-post="/api/v1/calculate" id="multiply" hx-target="#value" hx-vals='javascript:{"operation": "multiply", "num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Multiply</button>
+            <button hx-post="/api/v1/calculate" id="divide" hx-target="#value" hx-vals='javascript:{"operation": "divide", "num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Divide</button>
         </div>
         
         <div id="result" class="text-lg mt-4 hidden">

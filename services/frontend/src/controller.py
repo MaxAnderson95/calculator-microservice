@@ -9,7 +9,7 @@ def add(num1: float, num2: float) -> float:
     try:
         result.raise_for_status()
     except requests.exceptions.HTTPError as e:
-        raise Exception(f"Received bad status code from add service: {e}")
+        raise Exception(e.response.json().get("detail", "Unknown error"))
     return result.json().get("result")
 
 
@@ -20,7 +20,7 @@ def subtract(num1: float, num2: float) -> float:
     try:
         result.raise_for_status()
     except requests.exceptions.HTTPError as e:
-        raise Exception(f"Received bad status code from subtract service: {e}")
+        raise Exception(e.response.json().get("detail", "Unknown error"))
     return result.json().get("result")
 
 
@@ -31,7 +31,7 @@ def multiply(num1: float, num2: float) -> float:
     try:
         result.raise_for_status()
     except requests.exceptions.HTTPError as e:
-        raise Exception(f"Received bad status code from multiply service: {e}")
+        raise Exception(e.response.json().get("detail", "Unknown error"))
     return result.json().get("result")
 
 
@@ -42,6 +42,5 @@ def divide(num1: float, num2: float) -> float:
     try:
         result.raise_for_status()
     except requests.exceptions.HTTPError as e:
-        raise Exception(f"Received bad status code from divide service: {
-                        e.response.json().get("detail", "Unknown error")}")
+        raise Exception(e.response.json().get("detail", "Unknown error"))
     return result.json().get("result")
