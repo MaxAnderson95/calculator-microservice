@@ -30,15 +30,14 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ github.repository }}/${{ matrix.service }}
+            ghcr.io/${{ github.repository }}/${{ matrix.service }}
           tags: |
             type=semver,pattern={{version}}
-            type=raw,value=latest
 
       - name: Build and Push Image
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: ./services/${{ matrix.service }}/Dockerfile
+          context: ./services/${{ matrix.service }}
+          file: Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
