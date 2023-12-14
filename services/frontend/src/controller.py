@@ -4,7 +4,7 @@ from cache import get_cache, set_cache
 
 
 def add(num1: float, num2: float) -> float:
-    cached_result = get_cache(f"add:{num1}:{num2}")
+    cached_result = get_cache("add", num1, num2)
     if cached_result is not None:
         return cached_result
     add_result = requests.post(
@@ -15,12 +15,12 @@ def add(num1: float, num2: float) -> float:
     except requests.exceptions.HTTPError as e:
         raise Exception(e.response.json().get("detail", "Unknown error"))
     result = add_result.json().get("result")
-    set_cache(f"add:{num1}:{num2}", result)
+    set_cache("add", num1, num2, result)
     return result
 
 
 def subtract(num1: float, num2: float) -> float:
-    cached_result = get_cache(f"subtract:{num1}:{num2}")
+    cached_result = get_cache("subtract", num1, num2)
     if cached_result is not None:
         return cached_result
     subtract_result = requests.post(
@@ -31,12 +31,12 @@ def subtract(num1: float, num2: float) -> float:
     except requests.exceptions.HTTPError as e:
         raise Exception(e.response.json().get("detail", "Unknown error"))
     result = subtract_result.json().get("result")
-    set_cache(f"subtract:{num1}:{num2}", result)
+    set_cache("subtract", num1, num2, result)
     return result
 
 
 def multiply(num1: float, num2: float) -> float:
-    cached_result = get_cache(f"multiply:{num1}:{num2}")
+    cached_result = get_cache("multiply", num1, num2)
     if cached_result is not None:
         return cached_result
     multiply_result = requests.post(
@@ -47,12 +47,12 @@ def multiply(num1: float, num2: float) -> float:
     except requests.exceptions.HTTPError as e:
         raise Exception(e.response.json().get("detail", "Unknown error"))
     result = multiply_result.json().get("result")
-    set_cache(f"multiply:{num1}:{num2}", result)
+    set_cache("multiply", num1, num2, result)
     return result
 
 
 def divide(num1: float, num2: float) -> float:
-    cached_result = get_cache(f"divide:{num1}:{num2}")
+    cached_result = get_cache("divide", num1, num2)
     if cached_result is not None:
         return cached_result
     divide_result = requests.post(
@@ -63,5 +63,5 @@ def divide(num1: float, num2: float) -> float:
     except requests.exceptions.HTTPError as e:
         raise Exception(e.response.json().get("detail", "Unknown error"))
     result = divide_result.json().get("result")
-    set_cache(f"divide:{num1}:{num2}", result)
+    set_cache("divide", num1, num2, result)
     return result
