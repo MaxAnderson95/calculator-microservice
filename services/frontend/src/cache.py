@@ -7,6 +7,9 @@ redis = Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, decode_respons
 
 
 def get_cache(operation: str, num1: float, num2: float) -> float | None:
+    if operation in ["add", "multiply"]:
+        num1, num2 = sorted([num1, num2])  # Sort the numbers so that the cache key is always the same
+
     try:
         value = redis.get(f"{operation}:{num1}:{num2}")
         if value is None and operation in ["add", "multiply"]:
