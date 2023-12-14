@@ -8,7 +8,7 @@ settings = Dynaconf(
     validators=[
         Validator("ADD_SERVICE_URL", must_exist=True),
         Validator("PORT", must_exist=True),
-        Validator("DEBUG", must_exist=True),
+        Validator("DEBUG", default=False),
     ],
 )
 

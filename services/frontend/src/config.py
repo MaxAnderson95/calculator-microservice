@@ -11,7 +11,7 @@ settings = Dynaconf(
         Validator("MULTIPLY_SERVICE_URL", must_exist=True),
         Validator("DIVIDE_SERVICE_URL", must_exist=True),
         Validator("PORT", must_exist=True),
-        Validator("DEBUG", must_exist=True),
+        Validator("DEBUG", default=False),
     ],
 )
 

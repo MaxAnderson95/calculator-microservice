@@ -7,7 +7,7 @@ settings = Dynaconf(
     envvar_prefix=False,
     validators=[
         Validator("PORT", must_exist=True),
-        Validator("DEBUG", must_exist=True),
+        Validator("DEBUG", default=False),
     ],
 )
 

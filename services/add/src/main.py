@@ -1,4 +1,5 @@
 import logging
+import time
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -21,6 +22,7 @@ class AddResponse(BaseModel):
 
 def add_controller(num1: float, num2: float) -> float:
     logger.info(f"Adding {num1} + {num2}")
+    time.sleep(2)
     return num1 + num2
 
 
