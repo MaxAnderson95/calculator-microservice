@@ -4,48 +4,48 @@ services:
       context: ./services/frontend
     container_name: frontend
     environment:
-      - PORT=8000
-      - ADD_SERVICE_URL=http://add-service:8001
-      - SUBTRACT_SERVICE_URL=http://subtract-service:8002
-      - MULTIPLY_SERVICE_URL=http://multiply-service:8003
-      - DIVIDE_SERVICE_URL=http://divide-service:8004
+      - PORT=80
+      - ADD_SERVICE_URL=http://add
+      - SUBTRACT_SERVICE_URL=http://subtract
+      - MULTIPLY_SERVICE_URL=http://multiply
+      - DIVIDE_SERVICE_URL=http://divide
       - REDIS_HOST=redis
       - REDIS_PORT=6379
     ports:
-      - "8000:8000"
+      - "8000:80"
     restart: "no"
 
-  add-service:
+  add:
     build:
       context: ./services/add
-    container_name: add-service
+    container_name: add
     environment:
-      - PORT=8001
+      - PORT=80
     restart: "no"
 
-  subtract-service:
+  subtract:
     build:
       context: ./services/subtract
-    container_name: subtract-service
+    container_name: subtract
     environment:
-      - PORT=8002
-      - ADD_SERVICE_URL=http://add-service:8001
+      - PORT=80
+      - ADD_SERVICE_URL=http://add
     restart: "no"
 
-  multiply-service:
+  multiply:
     build:
       context: ./services/multiply
-    container_name: multiply-service
+    container_name: multiply
     environment:
-      - PORT=8003
+      - PORT=80
     restart: "no"
 
-  divide-service:
+  divide:
     build:
       context: ./services/divide
-    container_name: divide-service
+    container_name: divide
     environment:
-      - PORT=8004
+      - PORT=80
     restart: "no"
 
   redis:
