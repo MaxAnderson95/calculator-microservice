@@ -4,10 +4,10 @@ import uvicorn
 from typing import Annotated
 from fastapi import FastAPI, HTTPException, Form
 from fastapi.staticfiles import StaticFiles
-import config
+from config import settings
 import controller
 
-logging.basicConfig(level=config.LEVEL)
+logging.basicConfig(level=settings.LEVEL)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Frontend Service")
@@ -40,13 +40,10 @@ def add(operation: Annotated[str, Form()], num1: Annotated[float, Form()], num2:
         case _:
             raise HTTPException(status_code=404, detail="Invalid operation")
 
-    logger.info(f"Adding {num1} + {num2}")
-    return controller.add(num1, num2)
-
 
 static_folder = pathlib.Path(__file__).parent.resolve() / "static"
 app.mount("/", StaticFiles(directory=static_folder, html=True), name="static")
 
 if __name__ == "__main__":
-    logger.debug(f"Starting server on port {config.PORT} with DEBUG={config.DEBUG}")
-    uvicorn.run("main:app", host="0.0.0.0", port=config.PORT, reload=config.DEBUG)
+    logger.debug(f"Starting server on port {settings.PORT} with DEBUG={settings.DEBUG}")
+    uvicorn.run("main:app", host="0.0.0.0", port=settings.PORT, reload=settings.DEBUG)

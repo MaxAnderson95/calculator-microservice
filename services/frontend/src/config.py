@@ -1,25 +1,28 @@
-import os
 import logging
+from dynaconf import Dynaconf, Validator, ValidationError
 
-ADD_SERVICE_URL = os.environ.get("ADD_SERVICE_URL")
-if not ADD_SERVICE_URL:
-    raise ValueError("No ADD_SERVICE_URL environment variable set")
+logger = logging.getLogger(__name__)
 
-SUBTRACT_SERVICE_URL = os.environ.get("SUBTRACT_SERVICE_URL")
-if not SUBTRACT_SERVICE_URL:
-    raise ValueError("No SUBTRACT_SERVICE_URL environment variable set")
+settings = Dynaconf(
+    envvar_prefix=False,
+    validators=[
+        Validator("ADD_SERVICE_URL", must_exist=True),
+        Validator("SUBTRACT_SERVICE_URL", must_exist=True),
+        Validator("MULTIPLY_SERVICE_URL", must_exist=True),
+        Validator("DIVIDE_SERVICE_URL", must_exist=True),
+        Validator("PORT", must_exist=True),
+        Validator("DEBUG", must_exist=True),
+    ],
+)
 
-MULTIPLY_SERVICE_URL = os.environ.get("MULTIPLY_SERVICE_URL")
-if not MULTIPLY_SERVICE_URL:
-    raise ValueError("No MULTIPLY_SERVICE_URL environment variable set")
+try:
+    settings.validators.validate_all()
+except ValidationError as e:
+    accumulative_errors = e.details
+    logger.critical("FATAL ERROR: The following required settings are missing:")
+    for error in accumulative_errors:
+        logger.critical(f"{error[1]}")
+    logger.critical("Exiting...")
+    raise SystemExit(1)
 
-DIVIDE_SERVICE_URL = os.environ.get("DIVIDE_SERVICE_URL")
-if not DIVIDE_SERVICE_URL:
-    raise ValueError("No DIVIDE_SERVICE_URL environment variable set")
-
-PORT = int(os.environ.get("PORT", 8000))
-if not PORT:
-    raise ValueError("No PORT environment variable set")
-
-DEBUG = True if os.getenv("DEBUG") else False
-LEVEL = logging.DEBUG if os.getenv("DEBUG") else logging.INFO
+settings.level = logging.DEBUG if settings.DEBUG else logging.INFO

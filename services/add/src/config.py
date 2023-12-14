@@ -6,7 +6,6 @@ logger = logging.getLogger(__name__)
 settings = Dynaconf(
     envvar_prefix=False,
     validators=[
-        Validator("ADD_SERVICE_URL", must_exist=True),
         Validator("PORT", must_exist=True),
         Validator("DEBUG", must_exist=True),
     ],

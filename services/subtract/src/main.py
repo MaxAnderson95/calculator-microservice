@@ -1,11 +1,11 @@
 import logging
 import uvicorn
+import requests
 from fastapi import FastAPI
 from pydantic import BaseModel
-import requests
-import config
+from config import settings
 
-logging.basicConfig(level=config.LEVEL)
+logging.basicConfig(level=settings.LEVEL)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Subtract Service")
@@ -21,10 +21,11 @@ class SubtractResponse(BaseModel):
 
 
 def subtract_controller(num1: float, num2: float) -> float:
+    logger.info(f"Subtracting {num1} - {num2}")
     num2 = -num2
     logger.info(f"Sending request to add service: {num1} + {num2}")
     result = requests.post(
-        f"{config.ADD_SERVICE_URL}/api/v1/add", json={"num1": num1, "num2": num2}
+        f"{settings.ADD_SERVICE_URL}/api/v1/add", json={"num1": num1, "num2": num2}
     )
     try:
         result.raise_for_status()
@@ -42,5 +43,5 @@ def subtract(request: SubtractRequest) -> SubtractResponse:
 
 
 if __name__ == "__main__":
-    logger.debug(f"Starting server on port {config.PORT} with DEBUG={config.DEBUG}")
-    uvicorn.run("main:app", host="0.0.0.0", port=config.PORT, reload=config.DEBUG)
+    logger.debug(f"Starting server on port {settings.PORT} with DEBUG={settings.DEBUG}")
+    uvicorn.run("main:app", host="0.0.0.0", port=settings.PORT, reload=settings.DEBUG)

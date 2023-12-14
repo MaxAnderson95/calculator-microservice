@@ -3,9 +3,9 @@ import logging
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
+from config import settings
 
-LEVEL = logging.DEBUG if os.getenv("DEBUG") else logging.INFO
-logging.basicConfig(level=LEVEL)
+logging.basicConfig(level=settings.LEVEL)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Multiply Service")
@@ -34,7 +34,5 @@ def multiply(request: MultiplyRequest) -> MultiplyResponse:
 
 
 if __name__ == "__main__":
-    PORT = int(os.getenv("PORT", 8003))
-    DEBUG = True if os.getenv("DEBUG") else False
-    logger.debug(f"Starting server on port {PORT} with DEBUG={DEBUG}")
-    uvicorn.run("main:app", host="0.0.0.0", port=PORT, reload=DEBUG)
+    logger.debug(f"Starting server on port {settings.PORT} with DEBUG={settings.DEBUG}")
+    uvicorn.run("main:app", host="0.0.0.0", port=settings.PORT, reload=settings.DEBUG)
