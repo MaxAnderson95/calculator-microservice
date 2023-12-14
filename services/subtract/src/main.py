@@ -1,3 +1,4 @@
+import time
 import logging
 import uvicorn
 import requests
@@ -23,6 +24,7 @@ class SubtractResponse(BaseModel):
 def subtract_controller(num1: float, num2: float) -> float:
     logger.info(f"Subtracting {num1} - {num2}")
     num2 = -num2
+    time.sleep(2)
     logger.info(f"Sending request to add service: {num1} + {num2}")
     result = requests.post(
         f"{settings.ADD_SERVICE_URL}/api/v1/add", json={"num1": num1, "num2": num2}

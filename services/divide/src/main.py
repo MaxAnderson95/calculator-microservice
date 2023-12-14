@@ -1,5 +1,5 @@
-import os
 import logging
+import time
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -24,6 +24,7 @@ def divide_controller(num1: float, num2: float) -> float:
     logger.info(f"Dividing {num1} / {num2}")
     if num2 == 0:
         raise ZeroDivisionError("Cannot divide by zero")
+    time.sleep(2)
     return num1 / num2
 
 

@@ -1,4 +1,4 @@
-import os
+import time
 import logging
 import uvicorn
 from fastapi import FastAPI
@@ -22,6 +22,7 @@ class MultiplyResponse(BaseModel):
 
 def multiply_controller(num1: float, num2: float) -> float:
     logger.info(f"Multiplying {num1} * {num2}")
+    time.sleep(2)
     return num1 * num2
 
 
