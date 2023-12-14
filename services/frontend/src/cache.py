@@ -25,6 +25,9 @@ def get_cache(operation: str, num1: float, num2: float) -> float | None:
 
 
 def set_cache(operation: str, num1: float, num2: float, val: float) -> None:
+    if operation in ["add", "multiply"]:
+        num1, num2 = sorted([num1, num2])  # Sort the numbers so that the cache key is always the same
+
     try:
         redis.set(f"{operation}:{num1}:{num2}", val)
         logger.info(f"Caching result for key: {operation}:{num1}:{num2} to value: {val}")
