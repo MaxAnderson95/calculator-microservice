@@ -16,10 +16,11 @@
         </form>
 
         <div class="flex space-x-2 mt-4">
-            <button hx-post="/api/v1/calculate" id="add" hx-target="#value" hx-vals='javascript:{"operation": "add", "num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add</button>
-            <button hx-post="/api/v1/calculate" id="subtract" hx-target="#value" hx-vals='javascript:{"operation": "subtract", "num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Subtract</button>
-            <button hx-post="/api/v1/calculate" id="multiply" hx-target="#value" hx-vals='javascript:{"operation": "multiply", "num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Multiply</button>
-            <button hx-post="/api/v1/calculate" id="divide" hx-target="#value" hx-vals='javascript:{"operation": "divide", "num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Divide</button>
+            <button hx-post="/api/v1/calculate" id="add" hx-target="#value" hx-vals='javascript:{"operation": "add", "num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 calc-button">Add</button>
+            <button hx-post="/api/v1/calculate" id="subtract" hx-target="#value" hx-vals='javascript:{"operation": "subtract", "num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 calc-button">Subtract</button>
+            <button hx-post="/api/v1/calculate" id="multiply" hx-target="#value" hx-vals='javascript:{"operation": "multiply", "num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 calc-button">Multiply</button>
+            <button hx-post="/api/v1/calculate" id="divide" hx-target="#value" hx-vals='javascript:{"operation": "divide", "num1": parseFloat(document.getElementById("num1").value), "num2": parseFloat(document.getElementById("num2").value)}' class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 calc-button">Divide</button>
+            <button id="clear" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Clear Result</button>
         </div>
         
         <div id="result" class="text-lg mt-4 hidden">
@@ -28,7 +29,7 @@
     </div>
 
     <script>
-        document.querySelectorAll('button').forEach(button => {
+        document.querySelectorAll('.calc-button').forEach(button => {
             button.addEventListener('click', () => {
                 const resultDiv = document.getElementById('result');
                 const valueSpan = document.getElementById('value');
@@ -61,6 +62,16 @@
                 document.getElementById('result_type').innerHTML = 'Error:';
                 document.getElementById('value').innerHTML = JSON.parse(evt.detail.xhr.response).detail;
             });
+        });
+        // Script for Clear Result button
+        document.getElementById('clear').addEventListener('click', () => {
+            const resultDiv = document.getElementById('result');
+            const valueSpan = document.getElementById('value');
+            const resultTypeSpan = document.getElementById('result_type');
+
+            valueSpan.innerHTML = '';
+            resultTypeSpan.innerHTML = 'Result:';
+            resultDiv.classList.add('hidden');
         });
     </script>
 </body>
