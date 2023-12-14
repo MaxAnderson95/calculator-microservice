@@ -1,5 +1,5 @@
 import logging
-from dynaconf import Dynaconf, Validator, ValidationError
+from dynaconf import validator, Dynaconf, Validator, ValidationError
 
 logger = logging.getLogger(__name__)
 
@@ -10,6 +10,8 @@ settings = Dynaconf(
         Validator("SUBTRACT_SERVICE_URL", must_exist=True),
         Validator("MULTIPLY_SERVICE_URL", must_exist=True),
         Validator("DIVIDE_SERVICE_URL", must_exist=True),
+        Validator("REDIS_HOST", default="localhost"),
+        Validator("REDIS_PORT", default=6379),
         Validator("PORT", must_exist=True),
         Validator("DEBUG", default=False),
     ],

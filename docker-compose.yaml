@@ -9,6 +9,8 @@ services:
       - SUBTRACT_SERVICE_URL=http://subtract-service:8002
       - MULTIPLY_SERVICE_URL=http://multiply-service:8003
       - DIVIDE_SERVICE_URL=http://divide-service:8004
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     ports:
       - "8000:8000"
     restart: "no"
@@ -45,3 +47,9 @@ services:
     environment:
       - PORT=8004
     restart: "no"
+
+  redis:
+    image: redis
+    container_name: redis
+    restart: "no"
+    command: /bin/bash -c 'rm -rf /data/* && redis-server'
