@@ -12,8 +12,6 @@ def get_cache(operation: str, num1: float, num2: float) -> float | None:
 
     try:
         value = redis.get(f"{operation}:{num1}:{num2}")
-        if value is None and operation in ["add", "multiply"]:
-            value = redis.get(f"{operation}:{num2}:{num1}")
     except RedisError as e:
         logger.warning(f"Cache miss due to Redis error: {e}")
         return None
