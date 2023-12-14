@@ -33,17 +33,30 @@
                 const resultDiv = document.getElementById('result');
                 const valueSpan = document.getElementById('value');
                 const resultTypeSpan = document.getElementById('result_type');
+                
+                // Clear current result
+                valueSpan.innerHTML = '';
                 resultTypeSpan.innerHTML = 'Result:';
+    
+                // Introduce a slight delay before showing the loading message
+                setTimeout(() => {
+                    if (valueSpan.innerHTML === '') {
+                        valueSpan.innerHTML = 'Calculating...';
+                        resultDiv.classList.remove('hidden');
+                    }
+                }, 200); // Delay of 200 milliseconds
+    
                 // Check for changes in the value span
                 const observer = new MutationObserver(() => {
-                    if (valueSpan.innerText.trim() !== '') {
+                    if (valueSpan.innerText.trim() !== '' && valueSpan.innerText !== 'Calculating...') {
                         resultDiv.classList.remove('hidden');
                     }
                 });
-
+    
                 // Start observing the value span for changes
-                observer.observe(valueSpan, { childList: true });
+                observer.observe(valueSpan, { childList: true, characterData: true, subtree: true });
             });
+    
             button.addEventListener('htmx:responseError', (evt) => {
                 document.getElementById('result_type').innerHTML = 'Error:';
                 document.getElementById('value').innerHTML = JSON.parse(evt.detail.xhr.response).detail;
