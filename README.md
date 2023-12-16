@@ -2,103 +2,25 @@
 
 [![Build and Publish Container Images](https://github.com/MaxAnderson95/calculator-microservice/actions/workflows/build.yaml/badge.svg)](https://github.com/MaxAnderson95/calculator-microservice/actions/workflows/build.yaml)
 
-## Architecture Diagram
+A distributed calculator service written in Python.
 
-<img src="./assets/diagram.png" alt="Service Diagram" width="900px"/>
+<img src="./assets/ui.gif" alt="Main UI screen" width="400px" />
 
 ## Services
 
-### Frontend
+| Service  | Purpose                                          | Notes                                                                                                                                         |
+| -------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| frontend | Frontend UI written in HTMX + business logic API | Calls the other services for calculation services.                                                                                            |
+| add      | Dddition services                                |                                                                                                                                               |
+| subtract | Subtraction services                             | Calls the add service with the 2nd number as a negative                                                                                       |
+| multiply | Multiplication services                          |                                                                                                                                               |
+| divide   | Division services                                |                                                                                                                                               |
+| redis    | Caching                                          | caches already computed computations. Each math service introduces an artifical delay of 2 seconds so the speed from caching can be observed. |
+| postgres | Request logging                                  | Logs all sucessful computation requests. Optional. If not specified, a local SQLite DB is used.                                               |
 
-A Python FastAPI service which serves the static content at `/` and a user API at `/api/v1`.
+## Architecture Diagram
 
-<img src="./assets/ui.png" alt="Main UI screen" width="400px" />
-
-The web UI is written using HTMX, Tailwind CSS, and some basic JS. It submits the values in the form to the `/api/v1/calculate` route. The values are submitted and encoded as form data. The keys in the form are `operation`, `num1`, and `num2`. Valid values for `operation` are `add`, `subtract`, `multiply`, and `divide`. The frontend API will then submit requests to the respective backend services for calculation.
-
-### Add Service
-
-A Python FastAPI service which serves a single route: `/api/v1/add`. It accepts a traditional JSON payload in the following format:
-
-```json
-{
-    "num1": float,
-    "num2": float
-}
-```
-
-It then returns a response in the following format:
-
-```json
-{
-    "result": float
-}
-```
-
-The logic for addition is contained inside this service.
-
-### Subtract Service
-
-A Python FastAPI service which serves a single route: `/api/v1/subtract`. It accepts a traditional JSON payload in the following format:
-
-```json
-{
-    "num1": float,
-    "num2": float
-}
-```
-
-It then returns a response in the following format:
-
-```json
-{
-    "result": float
-}
-```
-
-This service farms its logic off to the addition service buy converting `num2` to a negative number, and then sending it for addition.
-
-### Multiply Service
-
-A Python FastAPI service which serves a single route: `/api/v1/multiply`. It accepts a traditional JSON payload in the following format:
-
-```json
-{
-    "num1": float,
-    "num2": float
-}
-```
-
-It then returns a response in the following format:
-
-```json
-{
-    "result": float
-}
-```
-
-The logic for multiplication is contained inside this service.
-
-### Divide Service
-
-A Python FastAPI service which serves a single route: `/api/v1/divide`. It accepts a traditional JSON payload in the following format:
-
-```json
-{
-    "num1": float,
-    "num2": float
-}
-```
-
-It then returns a response in the following format:
-
-```json
-{
-    "result": float
-}
-```
-
-The logic for division is contained inside this service.
+<img src="./assets/diagram.png" alt="Service Diagram" width="900px"/>
 
 ## Run locally
 
