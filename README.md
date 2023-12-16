@@ -116,9 +116,9 @@ Then access the frontend on `http://localhost:8000`.
 
 - [x] Build a frontend web UI
 
-- [ ] Add Redis caching to the frontend to cache recently computed calculations. Add delays to all calls by default to see the difference on a cache hit.
+- [x] Add Redis caching to the frontend to cache recently computed calculations. Add delays to all calls by default to see the difference on a cache hit.
 
-- [ ] Add a Postgres database to store a log of all calculation queries.
+- [x] Add a Postgres database to store a log of all calculation queries.
 
 - [ ] Instrument each service with OpenTelemetry to allow for exporting of trace data.
 
