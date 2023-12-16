@@ -6,6 +6,7 @@ from fastapi import FastAPI, HTTPException, Form
 from fastapi.staticfiles import StaticFiles
 from config import settings
 import controller
+from db_logging import new_calculation_log
 
 logging.basicConfig(level=settings.LEVEL)
 logger = logging.getLogger(__name__)
@@ -14,27 +15,35 @@ app = FastAPI(title="Frontend Service")
 
 
 @app.post("/api/v1/calculate")
-def add(operation: Annotated[str, Form()], num1: Annotated[float, Form()], num2: Annotated[float, Form()]) -> float:
+def calculate(operation: Annotated[str, Form()], num1: Annotated[float, Form()], num2: Annotated[float, Form()]) -> float:
     logger.info(f"Received operation: {operation} with values: {num1} and {num2}")
     match operation:
         case "add":
             try:
-                return controller.add(num1, num2)
+                result, cache_hit = controller.add(num1, num2)
+                new_calculation_log(operation, num1, num2, result, cache_hit)
+                return result
             except Exception as e:
                 raise HTTPException(status_code=400, detail=str(e))
         case "subtract":
             try:
-                return controller.subtract(num1, num2)
+                result, cache_hit = controller.subtract(num1, num2)
+                new_calculation_log(operation, num1, num2, result, cache_hit)
+                return result
             except Exception as e:
                 raise HTTPException(status_code=400, detail=str(e))
         case "multiply":
             try:
-                return controller.multiply(num1, num2)
+                result, cache_hit = controller.multiply(num1, num2)
+                new_calculation_log(operation, num1, num2, result, cache_hit)
+                return result
             except Exception as e:
                 raise HTTPException(status_code=400, detail=str(e))
         case "divide":
             try:
-                return controller.divide(num1, num2)
+                result, cache_hit = controller.divide(num1, num2)
+                new_calculation_log(operation, num1, num2, result, cache_hit)
+                return result
             except Exception as e:
                 raise HTTPException(status_code=400, detail=str(e))
         case _:

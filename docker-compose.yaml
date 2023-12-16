@@ -11,9 +11,21 @@ services:
       - DIVIDE_SERVICE_URL=http://divide
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=postgres
     ports:
       - "8000:80"
     restart: "no"
+    depends_on:
+      - add
+      - subtract
+      - multiply
+      - divide
+      - redis
+      - postgres
 
   add:
     build:
@@ -31,6 +43,8 @@ services:
       - PORT=80
       - ADD_SERVICE_URL=http://add
     restart: "no"
+    depends_on:
+      - add
 
   multiply:
     build:
@@ -53,3 +67,12 @@ services:
     container_name: redis
     restart: "no"
     command: /bin/bash -c 'rm -rf /data/* && redis-server'
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: "no"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres

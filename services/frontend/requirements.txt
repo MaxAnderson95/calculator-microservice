@@ -4,3 +4,5 @@ python-multipart
 requests
 dynaconf
 redis
+sqlalchemy
+psycopg2-binary
