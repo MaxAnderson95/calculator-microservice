@@ -33,6 +33,8 @@ def subtract_controller(num1: float, num2: float) -> float:
         result.raise_for_status()
     except requests.exceptions.HTTPError as e:
         raise Exception(f"Received bad status code from add service: {e}")
+    except Exception as e:
+        raise Exception(f"An unknown error occurred: {e}")
     return result.json().get("result")
 
 
