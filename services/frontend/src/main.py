@@ -23,8 +23,11 @@ def calculate(operation: Annotated[str, Form()], num1: Annotated[float, Form()],
                 result, cache_hit = controller.add(num1, num2)
                 new_calculation_log(operation, num1, num2, result, cache_hit)
                 return result
-            except Exception as e:
+            except controller.CalculatorError as e:
                 raise HTTPException(status_code=400, detail=str(e))
+            except Exception as e:
+                logger.error(e)
+                raise HTTPException(status_code=500, detail="An unknown error occurred")
         case "subtract":
             try:
                 result, cache_hit = controller.subtract(num1, num2)
