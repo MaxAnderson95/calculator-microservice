@@ -3,6 +3,8 @@ from dynaconf import validator, Dynaconf, Validator, ValidationError
 
 logger = logging.getLogger(__name__)
 
+ALLOWED_OPERATIONS = ["add", "subtract", "multiply", "divide"]
+
 settings = Dynaconf(
     envvar_prefix=False,
     validators=[

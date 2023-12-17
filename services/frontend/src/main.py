@@ -4,7 +4,7 @@ import uvicorn
 from typing import Annotated
 from fastapi import FastAPI, HTTPException, Form
 from fastapi.staticfiles import StaticFiles
-from config import settings
+from config import settings, ALLOWED_OPERATIONS
 import controller
 from db_logging import new_calculation_log
 
@@ -17,40 +17,18 @@ app = FastAPI(title="Frontend Service")
 @app.post("/api/v1/calculate")
 def calculate(operation: Annotated[str, Form()], num1: Annotated[float, Form()], num2: Annotated[float, Form()]) -> float:
     logger.info(f"Received operation: {operation} with values: {num1} and {num2}")
-    match operation:
-        case "add":
-            try:
-                result, cache_hit = controller.add(num1, num2)
-                new_calculation_log(operation, num1, num2, result, cache_hit)
-                return result
-            except controller.CalculatorError as e:
-                raise HTTPException(status_code=400, detail=str(e))
-            except Exception as e:
-                logger.error(e)
-                raise HTTPException(status_code=500, detail="An unknown error occurred")
-        case "subtract":
-            try:
-                result, cache_hit = controller.subtract(num1, num2)
-                new_calculation_log(operation, num1, num2, result, cache_hit)
-                return result
-            except Exception as e:
-                raise HTTPException(status_code=400, detail=str(e))
-        case "multiply":
-            try:
-                result, cache_hit = controller.multiply(num1, num2)
-                new_calculation_log(operation, num1, num2, result, cache_hit)
-                return result
-            except Exception as e:
-                raise HTTPException(status_code=400, detail=str(e))
-        case "divide":
-            try:
-                result, cache_hit = controller.divide(num1, num2)
-                new_calculation_log(operation, num1, num2, result, cache_hit)
-                return result
-            except Exception as e:
-                raise HTTPException(status_code=400, detail=str(e))
-        case _:
-            raise HTTPException(status_code=404, detail="Invalid operation")
+    if operation not in ALLOWED_OPERATIONS:
+        raise HTTPException(status_code=404, detail="Invalid operation")
+
+    try:
+        result, cache_hit = controller.calculate(operation, num1, num2)
+        new_calculation_log(operation, num1, num2, result, cache_hit)
+        return result
+    except controller.CalculatorError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.error(e)
+        raise HTTPException(status_code=500, detail="An unknown error occurred")
 
 
 static_folder = pathlib.Path(__file__).parent.resolve() / "static"
