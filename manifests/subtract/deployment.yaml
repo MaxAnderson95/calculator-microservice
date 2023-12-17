@@ -18,6 +18,6 @@ spec:
             - name: PORT
               value: "80"
             - name: ADD_SERVICE_URL
-              value: "http://add-service"
+              value: "http://add"
           ports:
             - containerPort: 80
