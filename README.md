@@ -30,7 +30,10 @@ To run locally, the easiest way is Docker compose. Simply run:
 docker-compose up
 ```
 
-Then access the frontend on `http://localhost:8000`.
+You can then access:
+
+- The frontend of the service at `http://localhost:8000`
+- The Jager instance to view traces at `http://localhost:16686`
 
 ## Todo List
 
@@ -42,7 +45,7 @@ Then access the frontend on `http://localhost:8000`.
 
 - [x] Add a Postgres database to store a log of all calculation queries.
 
-- [ ] Instrument each service with OpenTelemetry to allow for exporting of trace data.
+- [x] Instrument each service with OpenTelemetry to allow for exporting of trace data.
 
 - [ ] Add Prometheus (OpenMetrics) endpoints to export various metrics for each service.
 
