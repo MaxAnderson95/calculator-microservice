@@ -18,7 +18,14 @@
         "ADD_SERVICE_URL": "http://localhost:8001",
         "SUBTRACT_SERVICE_URL": "http://localhost:8002",
         "MULTIPLY_SERVICE_URL": "http://localhost:8003",
-        "DIVIDE_SERVICE_URL": "http://localhost:8004"
+        "DIVIDE_SERVICE_URL": "http://localhost:8004",
+        "REDIS_HOST": "localhost",
+        "REDIS_PORT": "6379",
+        "DB_HOST": "localhost",
+        "DB_PORT": "5432",
+        "DB_NAME": "postgres",
+        "DB_USER": "postgres",
+        "DB_PASSWORD": "postgres"
       }
     }
   ]
