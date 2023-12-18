@@ -17,6 +17,7 @@ A distributed calculator service written in Python.
 | divide   | Division services                                |                                                                                                                                               |
 | redis    | Caching                                          | caches already computed computations. Each math service introduces an artifical delay of 2 seconds so the speed from caching can be observed. |
 | postgres | Request logging                                  | Logs all sucessful computation requests. Optional. If not specified, a local SQLite DB is used.                                               |
+| jager    | Distributed Tracing                              | A service which collects and allows teh viewing of distributed trace data                                                                     |
 
 ## Architecture Diagram
 
