@@ -16,6 +16,10 @@ services:
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=postgres
+      - OTEL_SERVICE_NAME=frontend
+      - OTEL_TRACES_EXPORTER=console,otlp
+      - OTEL_METRICS_EXPORTER=console
+      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://jager:4317
     ports:
       - "8000:80"
     restart: "no"
@@ -33,6 +37,10 @@ services:
     container_name: add
     environment:
       - PORT=80
+      - OTEL_SERVICE_NAME=add
+      - OTEL_TRACES_EXPORTER=console,otlp
+      - OTEL_METRICS_EXPORTER=console
+      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://jager:4317
     restart: "no"
     ports:
       - "8001:80"
@@ -44,6 +52,10 @@ services:
     environment:
       - PORT=80
       - ADD_SERVICE_URL=http://add
+      - OTEL_SERVICE_NAME=subtract
+      - OTEL_TRACES_EXPORTER=console,otlp
+      - OTEL_METRICS_EXPORTER=console
+      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://jager:4317
     restart: "no"
     depends_on:
       - add
@@ -56,6 +68,10 @@ services:
     container_name: multiply
     environment:
       - PORT=80
+      - OTEL_SERVICE_NAME=multiply
+      - OTEL_TRACES_EXPORTER=console,otlp
+      - OTEL_METRICS_EXPORTER=console
+      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://jager:4317
     restart: "no"
     ports:
       - "8003:80"
@@ -66,6 +82,11 @@ services:
     container_name: divide
     environment:
       - PORT=80
+      - OTEL_SERVICE_NAME=divide
+      - OTEL_TRACES_EXPORTER=console,otlp
+      - OTEL_METRICS_EXPORTER=console
+      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://jager:4317
+
     restart: "no"
     ports:
       - "8004:80"
@@ -88,3 +109,10 @@ services:
       - POSTGRES_DB=postgres
     ports:
       - "5432:5432"
+
+  jager:
+    image: jaegertracing/all-in-one
+    container_name: jager
+    restart: "no"
+    ports:
+      - "16686:16686"
