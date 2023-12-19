@@ -8,4 +8,7 @@ install-reqs:
 	@cd $(ROOT_DIR) && \
 	find . -name 'requirements.txt' -exec pip install -r {} \;
 
+run:
+	docker-compose up --build
+
 .PHONY: install-reqs
