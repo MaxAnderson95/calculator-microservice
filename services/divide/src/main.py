@@ -4,11 +4,13 @@ import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from config import settings
+from prometheus_fastapi_instrumentator import Instrumentator
 
 logging.basicConfig(level=settings.LEVEL)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Divide Service")
+instrumentator = Instrumentator().instrument(app)
 
 
 class DivideRequest(BaseModel):
@@ -38,6 +40,9 @@ def divide(request: DivideRequest) -> DivideResponse:
         raise HTTPException(status_code=400, detail=str(e))
     logger.debug(f"Returning result: {result}")
     return DivideResponse(result=result)
+
+
+instrumentator.expose(app)
 
 
 if __name__ == "__main__":

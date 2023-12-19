@@ -8,12 +8,14 @@ from fastapi.staticfiles import StaticFiles
 from config import settings, ALLOWED_OPERATIONS
 from db_logging import new_calculation_log
 from opentelemetry import trace
+from prometheus_fastapi_instrumentator import Instrumentator
 
 logging.basicConfig(level=settings.LEVEL)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Frontend Service")
 tracer = trace.get_tracer(__name__)
+instrumentator = Instrumentator().instrument(app)
 
 
 @app.post("/api/v1/calculate")
@@ -37,6 +39,7 @@ def calculate(operation: Annotated[str, Form()], num1: Annotated[float, Form()],
             raise HTTPException(status_code=500, detail="An unknown error occurred")
 
 
+instrumentator.expose(app)
 static_folder = pathlib.Path(__file__).parent.resolve() / "static"
 app.mount("/", StaticFiles(directory=static_folder, html=True), name="static")
 

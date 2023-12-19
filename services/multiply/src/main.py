@@ -4,11 +4,13 @@ import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
 from config import settings
+from prometheus_fastapi_instrumentator import Instrumentator
 
 logging.basicConfig(level=settings.LEVEL)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Multiply Service")
+instrumentator = Instrumentator().instrument(app)
 
 
 class MultiplyRequest(BaseModel):
@@ -33,6 +35,8 @@ def multiply(request: MultiplyRequest) -> MultiplyResponse:
     logger.debug(f"Returning result: {result}")
     return MultiplyResponse(result=result)
 
+
+instrumentator.expose(app)
 
 if __name__ == "__main__":
     logger.debug(f"Starting server on port {settings.PORT} with DEBUG={settings.DEBUG}")
