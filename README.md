@@ -11,13 +11,13 @@ A distributed calculator service written in Python.
 | Service  | Purpose                                          | Notes                                                                                                                                         |
 | -------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | frontend | Frontend UI written in HTMX + business logic API | Calls the other services for calculation services.                                                                                            |
-| add      | Dddition services                                |                                                                                                                                               |
-| subtract | Subtraction services                             | Calls the add service with the 2nd number as a negative                                                                                       |
+| add      | Addition services                                |                                                                                                                                               |
+| subtract | Subtraction services                             | Calls the add service with the 2nd number as a negative.                                                                                       |
 | multiply | Multiplication services                          |                                                                                                                                               |
 | divide   | Division services                                |                                                                                                                                               |
-| redis    | Caching                                          | caches already computed computations. Each math service introduces an artifical delay of 2 seconds so the speed from caching can be observed. |
+| redis    | Caching                                          | Caches already computed computations. Each math service introduces an artifical delay of 2 seconds so the speed from caching can be observed. |
 | postgres | Request logging                                  | Logs all sucessful computation requests. Optional. If not specified, a local SQLite DB is used.                                               |
-| jager    | Distributed Tracing                              | A service which collects and allows teh viewing of distributed trace data                                                                     |
+| jager    | Distributed Tracing                              | A service which collects and allows the viewing of distributed trace data.                                                                     |
 
 ## Architecture Diagram
 
