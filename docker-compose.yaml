@@ -116,3 +116,25 @@ services:
     restart: "no"
     ports:
       - "16686:16686"
+
+  pgweb:
+    image: sosedoff/pgweb
+    container_name: pgweb
+    restart: "no"
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+    environment:
+      - PGWEB_DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres?sslmode=disable
+
+  redis-commander:
+    image: ghcr.io/joeferner/redis-commander:latest
+    container_name: redis-commander
+    restart: "no"
+    ports:
+      - "8082:8081"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOSTS=local:redis:6379

@@ -35,6 +35,8 @@ You can then access:
 
 - The frontend of the service at `http://localhost:8000`
 - The Jager instance to view traces at `http://localhost:16686`
+- The pgweb instance to view the Postgres database at `http://localhost:8081`
+- The Redis Commander instance to view the Redis cache at `http://localhost:8081`
 
 ## Todo List
 
