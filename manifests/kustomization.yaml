@@ -9,3 +9,5 @@ resources:
   - "./subtract"
   - "./multiply"
   - "./divide"
+  - "./postgres"
+  - "./redis"
