@@ -4,5 +4,3 @@ commonLabels:
 resources:
   - "deployment.yaml"
   - "service.yaml"
-  - "redis.yaml"
-  - "postgres.yaml"
