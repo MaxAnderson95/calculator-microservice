@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: subtract
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: subtract
@@ -22,3 +23,15 @@ spec:
               value: "http://add"
           ports:
             - containerPort: 80
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - subtract
+                topologyKey: "kubernetes.io/hostname"
