@@ -21,6 +21,8 @@ spec:
               value: "80"
             - name: ADD_SERVICE_URL
               value: "http://add"
+            - name: OTEL_SDK_DISABLED
+              value: "true"
           ports:
             - containerPort: 80
       affinity:

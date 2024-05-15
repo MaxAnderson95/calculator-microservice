@@ -41,6 +41,8 @@ spec:
               value: "postgres"
             - name: DB_NAME
               value: "postgres"
+            - name: OTEL_SDK_DISABLED
+              value: "true"
           ports:
             - containerPort: 80
       affinity:

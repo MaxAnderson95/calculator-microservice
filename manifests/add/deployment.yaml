@@ -19,6 +19,8 @@ spec:
           env:
             - name: PORT
               value: "80"
+            - name: OTEL_SDK_DISABLED
+              value: "true"
           ports:
             - containerPort: 80
       affinity:
